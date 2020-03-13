@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 ENV_DIR=$3
 
-[ -f $ENV_DIR/SHARED_BUILD_CACHE_APP_NAME ]
+if [ -f $ENV_DIR/SHARED_BUILD_CACHE_APP_NAME ]; then
+  exit 0
+else
+  exit 1
+fi
