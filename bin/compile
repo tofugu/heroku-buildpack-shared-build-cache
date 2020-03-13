@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+SHARED_BUILD_CACHE_APP_NAME=$(cat $ENV_DIR/SHARED_BUILD_CACHE_APP_NAME)
+
+if [ -f $ENV_DIR/HEROKU_API_KEY ]; then
+  HEROKU_API_KEY=$(cat $ENV_DIR/HEROKU_API_KEY)
+else
+  echo "HEROKU_API_KEY must be set"
+  exit 1
+fi
+
+cache_get_url=$(curl -s https://api.heroku.com/apps/$SHARED_BUILD_CACHE_APP_NAME/build-metadata \
+  -H "Accept: application/vnd.heroku+json; version=3.build-metadata" \
+  -H "Authorization: $HEROKU_API_KEY" \
+  | ruby -e "require 'json'; print JSON[STDIN.read]['cache_get_url']")
+
+curl -s $cache_get_url | tar -C $CACHE_DIR -zxf -
