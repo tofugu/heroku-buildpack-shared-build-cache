@@ -7,7 +7,7 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-if [ -d $CACHE_DIR/heroku ]; then
+if [ ! "$(ls -A $CACHE_DIR)" ]; then
   echo "Build cache exists, skipping shared build cache restore"
   exit 0
 fi
