@@ -39,3 +39,6 @@ curl -s $cache_get_url | tar -C $CACHE_DIR -zxf -
 
 end=`date +%s`
 echo "(took $((end-start))s)"
+
+echo "Cache directory contents:"
+du -h -d 1 -c $CACHE_DIR | sort -h
