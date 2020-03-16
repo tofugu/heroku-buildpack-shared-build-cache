@@ -31,7 +31,7 @@ cache_get_url=$(curl -s https://api.heroku.com/apps/$SHARED_BUILD_CACHE_APP_NAME
   -H "Authorization: Bearer $HEROKU_API_KEY" \
   | ruby -e "require 'json'; print JSON[STDIN.read]['cache_get_url']")
 
-echo "Restoring build cache..."
+echo "Restoring shared build cache from app [$SHARED_BUILD_CACHE_APP_NAME]..."
 
 start=`date +%s`
 
@@ -40,5 +40,5 @@ curl -s $cache_get_url | tar -C $CACHE_DIR -zxf -
 end=`date +%s`
 echo "(took $((end-start))s)"
 
-echo "Cache directory contents:"
+echo "Cache directory top-level directory sizes:"
 du -h -d 1 -c $CACHE_DIR | sort -h
