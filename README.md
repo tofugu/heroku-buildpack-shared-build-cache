@@ -18,4 +18,4 @@ SHARED_BUILD_CACHE_APP_NAME=my-staging-app
 
 ---
 
-Made with ✨by the SRE team at [Kajabi](https://kajabi.com)
+**Made with ✨by the SRE team at [Kajabi](https://kajabi.com)**
