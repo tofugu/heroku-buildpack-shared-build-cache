@@ -29,7 +29,7 @@ fi
 cache_get_url=$(curl -s https://api.heroku.com/apps/$SHARED_BUILD_CACHE_APP_NAME/build-metadata \
   -H "Accept: application/vnd.heroku+json; version=3.build-metadata" \
   -H "Authorization: Bearer $HEROKU_API_KEY" \
-  | jq '.cache_get_url' | tr -d '"')
+  | jq -r '.cache_get_url')
 
 echo "Restoring shared build cache from app [$SHARED_BUILD_CACHE_APP_NAME]..."
 
